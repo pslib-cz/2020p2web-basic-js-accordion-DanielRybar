@@ -745,8 +745,7 @@ details>summary::-webkit-details-marker {
 }
 
 .detail-vypujcky-container {
-  /*display: none;*/
-  height: 0;
+  display: block;
   overflow: hidden;
   transition: height .5s;
 }

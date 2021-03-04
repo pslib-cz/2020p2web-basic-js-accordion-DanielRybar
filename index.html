@@ -214,26 +214,63 @@
 
         </main>
 
-        <script>
-        // https://www.w3schools.com/howto/howto_js_accordion.asp
-            let elements = document.getElementsByClassName("vypujcka-item");
-            for (let element of elements) 
-            {
-                let details = element.getElementsByClassName("detail-vypujcky-container");
-                let detail_buttons = element.getElementsByTagName("input");
-                let max_i = Math.min(details.length, detail_buttons.length);
-                for (let i = 0; i < max_i; i++) 
-                { 
-                    detail_buttons[i].onclick = () => {
-                        if (detail_buttons[i].checked) {
-                            details[i].style.height = details[i].scrollHeight + "px";
-                        }
-                        else {
-                          details[i].style.height = '';
-                        }
-                    };
-                };
+        <script> /*Postup z internetu - těžší varianta*/
+            /* v layoutu musí být: 
+            .detail-vypujcky-container - zakomentován
+            v components:
+            .detail-vypujcky-container {
+            /*display: none; (zakomentováno)
+              height: 0;
+              overflow: hidden;
+              transition: height .5s;
+            }
+            */
+            // https://www.w3schools.com/howto/howto_js_accordion.asp
+
+        /*let elements = document.getElementsByClassName("vypujcka-item"); //nalezení prvku vypujcka-item
+        for (let element of elements) { //procházení kolekce prvků
+            let details = element.getElementsByClassName("detail-vypujcky-container"); //detail-vypujcky-container
+            let detail_buttons = element.getElementsByTagName("input"); //input    
+            let max_i = Math.min(details.length, detail_buttons.length);
+            for (let i = 0; i < max_i; i++) {
+                detail_buttons[i].onclick = () => {
+                    if (detail_buttons[i].checked) {
+                        details[i].style.height = details[i].scrollHeight + "px"
+                    }
+                    else {
+                        details[i].style.height = ''
+                    }
+                }
             };
+        };*/
+
+        /* Vlastní postup */
+        /* v components:
+        .detail-vypujcky-container {
+            display: block;
+            overflow: hidden;
+            transition: height .5s;
+        }
+        */
+        let collection = document.getElementsByClassName("vypujcka-item"); //nalezení prvku vypujcka-item
+        for (let element of collection) //procházení kolekce
+        {    
+            MyFunction(element);
+            element.getElementsByTagName("input")[0].onclick = (e) => { // navázání na událost click
+                MyFunction(element);
+            }
+        }
+        function MyFunction(element)
+        {
+            if (element.getElementsByTagName("input")[0].checked)
+            {                    
+                element.getElementsByClassName("detail-vypujcky-container")[0].style.height = element.getElementsByClassName("detail-vypujcky-container")[0].scrollHeight + "px";
+            }
+            else
+            {                    
+                element.getElementsByClassName("detail-vypujcky-container")[0].style.height = "0px";
+            }
+        }
         </script>
 
         <footer class="main-footer-layout main-footer">
